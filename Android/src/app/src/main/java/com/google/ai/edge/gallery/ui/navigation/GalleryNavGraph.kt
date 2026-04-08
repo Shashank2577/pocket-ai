@@ -83,6 +83,7 @@ import com.google.ai.edge.gallery.ui.common.ModelPageAppBar
 import com.google.ai.edge.gallery.ui.common.chat.ModelDownloadStatusInfoPanel
 import com.google.ai.edge.gallery.ui.home.HomeScreen
 import com.google.ai.edge.gallery.ui.home.PromoScreenGm4
+import com.google.ai.edge.gallery.ui.skills.PendingSkillSelection
 import com.google.ai.edge.gallery.ui.skills.SkillLibraryScreen
 import com.google.ai.edge.gallery.ui.modelmanager.GlobalModelManager
 import com.google.ai.edge.gallery.ui.modelmanager.ModelInitializationStatusType
@@ -195,7 +196,8 @@ fun GalleryNavHost(
         onNavigateToSkills = {
           navController.navigate(ROUTE_HOMESCREEN)
         },
-        onSkillCardClicked = { skillName ->
+        onSkillCardClicked = { skillId ->
+          PendingSkillSelection.skillId = skillId
           val agentTask = modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_AGENT_CHAT)
           if (agentTask != null) {
             pickedTask = agentTask
