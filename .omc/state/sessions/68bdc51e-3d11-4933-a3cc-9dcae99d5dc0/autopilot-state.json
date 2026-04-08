@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "started_at": "2026-04-08T08:16:22.183Z",
+  "original_prompt": "This is so bad. When you install the app, the app comes from the name of Edge Gallery. Do you know that? But after the first screen, the whole thing is Edge Gallery. Even the U.S. Edge Gallery, the theme changes to default Edge Gallery themes. I see what Edge Gallery exposes. Why have you done it like this? Even the models page is not updated as per the theme. It just shows as gallery. \"Liri, what exactly are you doing here?\" I asked you to sleep. Take the base of Edge Gallery but the UI should have been consistently seen throughout. about most of the pages. And what have you applied on the settings page? in the settings page you have hugging face access token why would you need hugging face access token exactly and like the Google AI Edge Gallery page, that has complete features of, that is completely how So, Edge Gallery looks and even the models completely look like how Edge Gallery looks. What have you created a clone of Edge gallery without even changing the UI? ? What exactly is the purpose of you have just cloned Edge Gallery completely end to end even and one screen of settings you have modified and the onboarding screen you have modified. as per our design theme, everything is still the old thing. There are no new features that I told you to develop apart from Coping Edge Gallery. ?",
+  "session_id": "68bdc51e-3d11-4933-a3cc-9dcae99d5dc0",
+  "project_path": "/Users/shashanksaxena/Documents/Personal/Code/gallary-ref/gallery-ref",
+  "reinforcement_count": 0,
+  "awaiting_confirmation": true,
+  "last_checked_at": "2026-04-08T08:16:22.184Z"
+}

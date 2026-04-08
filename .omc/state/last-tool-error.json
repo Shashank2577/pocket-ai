@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/shashanksaxena/Documents/Personal/Code/gallary-ref/gallery-ref/Android/src/app/src/main/java/com/shashank/pocketai/ui/benchmark/BenchmarkResultsViewer.kt\"}",
+  "error": "File content (10273 tokens) exceeds maximum allowed tokens (10000). Use offset and limit parameters to read specific portions of the file, or search for specific content instead of reading the whole file.",
+  "timestamp": "2026-04-08T08:43:27.382Z",
+  "retry_count": 2
+}

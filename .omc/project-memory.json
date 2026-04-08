@@ -75,6 +75,253 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "README.md",
+      "accessCount": 4,
+      "lastAccessed": 1775637282243,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/data/DownloadRepository.kt",
+      "accessCount": 3,
+      "lastAccessed": 1775637695963,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/home/HomeScreen.kt",
+      "accessCount": 3,
+      "lastAccessed": 1775637722768,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai",
+      "accessCount": 3,
+      "lastAccessed": 1775637729316,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui",
+      "accessCount": 3,
+      "lastAccessed": 1775637826664,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/benchmark/BenchmarkResultsViewer.kt",
+      "accessCount": 3,
+      "lastAccessed": 1775637837756,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/home/SettingsDialog.kt",
+      "accessCount": 2,
+      "lastAccessed": 1775636262244,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/res/values/strings.xml",
+      "accessCount": 2,
+      "lastAccessed": 1775637701625,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/llmsingleturn/PromptTemplateConfigs.kt",
+      "accessCount": 2,
+      "lastAccessed": 1775637720777,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/AndroidManifest.xml",
+      "accessCount": 1,
+      "lastAccessed": 1775636226068,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/navigation/GalleryNavGraph.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636232041,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/res/values/themes.xml",
+      "accessCount": 1,
+      "lastAccessed": 1775636237112,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/theme/ThemeSettings.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636237679,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui",
+      "accessCount": 1,
+      "lastAccessed": 1775636237967,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/home",
+      "accessCount": 1,
+      "lastAccessed": 1775636246562,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/theme/Color.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636252403,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/theme/Claymorphism.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636256991,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/home/HomeScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636257266,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/modelmanager/GlobalModelManager.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636262695,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/benchmark/BenchmarkScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636263205,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/theme/Theme.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636296553,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/llmchat/LlmChatScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636301136,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/google/ai/edge/gallery/ui/skills/SkillLibraryScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775636301388,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/home/PromoScreenGm4.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637656118,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/home/NewReleaseNotification.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637663955,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/skills/SkillLibraryScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637664072,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/GalleryApp.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637670787,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/GalleryAppTopBar.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637671979,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/common/tos/GemmaTermsOfUseDialog.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637672631,
+      "type": "file"
+    },
+    {
+      "path": "Android",
+      "accessCount": 1,
+      "lastAccessed": 1775637696236,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/res",
+      "accessCount": 1,
+      "lastAccessed": 1775637730088,
+      "type": "directory"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/home/SettingsDialog.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637798727,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/llmchat/LlmChatScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637799167,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/modelmanager/ModelManager.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637799253,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/common/chat/ChatPanel.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637799357,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/common/chat/ChatView.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637800068,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/modelmanager/GlobalModelManager.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637805759,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/common/chat/MessageInputText.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637805869,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/modelmanager/ModelList.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637806552,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/benchmark/BenchmarkScreen.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637806983,
+      "type": "file"
+    },
+    {
+      "path": "Android/src/app/src/main/java/com/shashank/pocketai/ui/common/ModelPageAppBar.kt",
+      "accessCount": 1,
+      "lastAccessed": 1775637816023,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }

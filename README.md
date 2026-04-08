@@ -61,7 +61,7 @@ Or push to GitHub to trigger the [CI build](.github/workflows/build_android.yaml
 ## Project Structure
 
 ```
-Android/src/app/src/main/java/com/google/ai/edge/gallery/
+Android/src/app/src/main/java/com/shashank/pocketai/
   ui/
     theme/
       Claymorphism.kt    -- Shadow engine + press animation
