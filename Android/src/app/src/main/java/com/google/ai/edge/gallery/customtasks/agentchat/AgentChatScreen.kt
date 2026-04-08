@@ -124,6 +124,23 @@ fun AgentChatScreen(
   val windowInfo = LocalWindowInfo.current
   val screenWidthDp = remember { with(density) { windowInfo.containerSize.width.toDp() } }
   var showSkillManagerBottomSheet by remember { mutableStateOf(false) }
+
+  // Pre-select a skill if navigated from SkillLibraryScreen.
+  val skillManagerUiState by skillManagerViewModel.uiState.collectAsState()
+  LaunchedEffect(skillManagerUiState.skills) {
+    if (skillManagerUiState.skills.isNotEmpty()) {
+      val pendingId = com.google.ai.edge.gallery.ui.skills.PendingSkillSelection.consume()
+      if (pendingId != null) {
+        val match = skillManagerUiState.skills.firstOrNull {
+          it.skill.name == pendingId
+        }
+        if (match != null && !match.skill.selected) {
+          skillManagerViewModel.setSkillSelected(match, true)
+        }
+      }
+    }
+  }
+
   var showAskInfoDialog by remember { mutableStateOf(false) }
   var currentAskInfoAction by remember { mutableStateOf<AskInfoAgentAction?>(null) }
   var askInfoInputValue by remember { mutableStateOf("") }

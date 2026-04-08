@@ -72,6 +72,7 @@ import androidx.navigation.navArgument
 import com.google.ai.edge.gallery.GalleryEvent
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskData
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskDataForBuiltinTask
+import com.google.ai.edge.gallery.data.BuiltInTaskId
 import com.google.ai.edge.gallery.data.ModelDownloadStatusType
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.data.isLegacyTasks
@@ -82,6 +83,7 @@ import com.google.ai.edge.gallery.ui.common.ModelPageAppBar
 import com.google.ai.edge.gallery.ui.common.chat.ModelDownloadStatusInfoPanel
 import com.google.ai.edge.gallery.ui.home.HomeScreen
 import com.google.ai.edge.gallery.ui.home.PromoScreenGm4
+import com.google.ai.edge.gallery.ui.skills.PendingSkillSelection
 import com.google.ai.edge.gallery.ui.skills.SkillLibraryScreen
 import com.google.ai.edge.gallery.ui.modelmanager.GlobalModelManager
 import com.google.ai.edge.gallery.ui.modelmanager.ModelInitializationStatusType
@@ -193,6 +195,15 @@ fun GalleryNavHost(
       SkillLibraryScreen(
         onNavigateToSkills = {
           navController.navigate(ROUTE_HOMESCREEN)
+        },
+        onSkillCardClicked = { skillId ->
+          val agentTask = modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_AGENT_CHAT)
+          if (agentTask != null) {
+            PendingSkillSelection.set(skillId)
+            pickedTask = agentTask
+            enableModelListAnimation = true
+            navController.navigate(ROUTE_MODEL_LIST)
+          }
         }
       )
     }
@@ -263,14 +274,16 @@ fun GalleryNavHost(
     composable(
       route = ROUTE_MODEL_LIST,
       enterTransition = {
-        if (initialState.destination.route == ROUTE_HOMESCREEN) {
+        if (initialState.destination.route == ROUTE_HOMESCREEN ||
+            initialState.destination.route == ROUTE_SKILL_LIBRARY) {
           slideEnter()
         } else {
           EnterTransition.None
         }
       },
       exitTransition = {
-        if (targetState.destination.route == ROUTE_HOMESCREEN) {
+        if (targetState.destination.route == ROUTE_HOMESCREEN ||
+            targetState.destination.route == ROUTE_SKILL_LIBRARY) {
           slideExit()
         } else {
           ExitTransition.None
