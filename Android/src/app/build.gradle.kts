@@ -37,7 +37,8 @@ android {
     minSdk = 31
     targetSdk = 35
     versionCode = 23
-    versionName = "1.0.11"
+    versionName = "1.1.0"
+    setProperty("archivesBaseName", "pocket-ai-v${versionName}")
 
     // Needed for HuggingFace auth workflows.
     // Use the scheme of the "Redirect URLs" in HuggingFace app.
