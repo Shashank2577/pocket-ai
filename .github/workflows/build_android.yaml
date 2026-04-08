@@ -20,15 +20,21 @@ jobs:
         working-directory: ./Android/src
     steps:
       - name: Checkout the source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
       - name: Build
         run: ./gradlew assembleRelease
-      - name: Upload APK
+      - name: Find APK
+        id: find_apk
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' | head -1)
+          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+          echo "Found APK: $APK_PATH"
+      - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: Android/src/app/build/outputs/apk/release/app-release-unsigned.apk
+          name: pocket-ai-release
+          path: Android/src/${{ steps.find_apk.outputs.apk_path }}
