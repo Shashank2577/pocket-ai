@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775578042188,
+  "projectRoot": "/Users/shashanksaxena/Documents/Personal/Code/gallary-ref/gallery-ref",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "Android": {
+      "path": "Android",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1775578042169,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "model_allowlists": {
+      "path": "model_allowlists",
+      "purpose": null,
+      "fileCount": 10,
+      "lastAccessed": 1775578042171,
+      "keyFiles": [
+        "1_0_10.json",
+        "1_0_11.json",
+        "1_0_4.json",
+        "1_0_5.json",
+        "1_0_6.json"
+      ]
+    },
+    "skills": {
+      "path": "skills",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775578042173,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "Android/src": {
+      "path": "Android/src",
+      "purpose": "Source code",
+      "fileCount": 6,
+      "lastAccessed": 1775578042178,
+      "keyFiles": [
+        "build.gradle.kts",
+        "gradle.properties",
+        "gradlew"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
