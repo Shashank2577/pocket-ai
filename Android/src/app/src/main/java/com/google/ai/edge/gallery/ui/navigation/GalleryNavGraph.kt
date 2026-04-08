@@ -72,6 +72,7 @@ import androidx.navigation.navArgument
 import com.google.ai.edge.gallery.GalleryEvent
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskData
 import com.google.ai.edge.gallery.customtasks.common.CustomTaskDataForBuiltinTask
+import com.google.ai.edge.gallery.data.BuiltInTaskId
 import com.google.ai.edge.gallery.data.ModelDownloadStatusType
 import com.google.ai.edge.gallery.data.Task
 import com.google.ai.edge.gallery.data.isLegacyTasks
@@ -193,6 +194,14 @@ fun GalleryNavHost(
       SkillLibraryScreen(
         onNavigateToSkills = {
           navController.navigate(ROUTE_HOMESCREEN)
+        },
+        onSkillCardClicked = { skillName ->
+          val agentTask = modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_AGENT_CHAT)
+          if (agentTask != null) {
+            pickedTask = agentTask
+            enableModelListAnimation = true
+            navController.navigate(ROUTE_MODEL_LIST)
+          }
         }
       )
     }

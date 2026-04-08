@@ -36,18 +36,35 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.res.Configuration
+import com.google.ai.edge.gallery.ui.theme.GalleryTheme
 import com.google.ai.edge.gallery.ui.theme.clayButton
+import com.google.ai.edge.gallery.ui.theme.clayCanvas
+import com.google.ai.edge.gallery.ui.theme.clayCanvasDark
+import com.google.ai.edge.gallery.ui.theme.clayTextMuted
+import com.google.ai.edge.gallery.ui.theme.clayTextMutedDark
+import com.google.ai.edge.gallery.ui.theme.clayTextPrimary
+import com.google.ai.edge.gallery.ui.theme.clayTextPrimaryDark
 import com.google.ai.edge.gallery.ui.theme.clayPressEffect
 import com.google.ai.edge.gallery.ui.theme.clayPrimary
 import com.google.ai.edge.gallery.ui.theme.clayPrimaryDark
@@ -62,19 +79,22 @@ import com.google.ai.edge.gallery.ui.theme.clayTertiaryDark
 data class SkillCardData(
   val title: String,
   val description: String,
-  val category: String
+  val category: String,
+  val skillId: String
 )
 
 private val featuredSkillsData = listOf(
   SkillCardData(
     title = "Mood Music",
     description = "Generate music playlists based on your current mood.",
-    category = "Featured"
+    category = "Featured",
+    skillId = "mood-music"
   ),
   SkillCardData(
     title = "Restaurant Roulette",
     description = "Discover random restaurants nearby for your next meal.",
-    category = "Featured"
+    category = "Featured",
+    skillId = "restaurant-roulette"
   )
 )
 
@@ -82,48 +102,57 @@ private val builtInSkillsData = listOf(
   SkillCardData(
     title = "Query Wikipedia",
     description = "Query summary from Wikipedia for a given topic.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "query-wikipedia"
   ),
   SkillCardData(
     title = "Interactive Map",
     description = "Show an interactive map view for the given location.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "interactive-map"
   ),
   SkillCardData(
     title = "Mood Tracker",
     description = "Track your daily mood and visualize emotional trends.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "mood-tracker"
   ),
   SkillCardData(
     title = "QR Code",
     description = "Generate QR codes from text or URLs.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "qr-code"
   ),
   SkillCardData(
     title = "Calculate Hash",
     description = "Calculate hash values for text inputs.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "calculate-hash"
   ),
   SkillCardData(
     title = "Text Spinner",
     description = "Rewrite and paraphrase text in different styles.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "text-spinner"
   ),
   SkillCardData(
     title = "Kitchen Adventure",
     description = "Get creative recipe ideas from ingredients you have.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "kitchen-adventure"
   ),
   SkillCardData(
     title = "Send Email",
     description = "Compose and send emails using natural language.",
-    category = "Built-in"
+    category = "Built-in",
+    skillId = "send-email"
   )
 )
 
 @Composable
 fun SkillLibraryScreen(
-  onNavigateToSkills: () -> Unit = {}
+  onNavigateToSkills: () -> Unit = {},
+  onSkillCardClicked: (String) -> Unit = {}
 ) {
   val isDark = isSystemInDarkTheme()
   val background = MaterialTheme.colorScheme.background
@@ -133,6 +162,16 @@ fun SkillLibraryScreen(
   val primaryLighter = if (isDark) clayPrimaryLighterDark else clayPrimaryLighter
   val featuredOrbColor = if (isDark) claySecondaryDark else claySecondary
   val builtInOrbColor = if (isDark) clayTertiaryDark else clayTertiary
+
+  var searchQuery by remember { mutableStateOf("") }
+  val filteredFeatured = featuredSkillsData.filter {
+    searchQuery.isEmpty() || it.title.contains(searchQuery, ignoreCase = true) ||
+      it.description.contains(searchQuery, ignoreCase = true)
+  }
+  val filteredBuiltIn = builtInSkillsData.filter {
+    searchQuery.isEmpty() || it.title.contains(searchQuery, ignoreCase = true) ||
+      it.description.contains(searchQuery, ignoreCase = true)
+  }
 
   LazyColumn(
     modifier = Modifier
@@ -220,55 +259,100 @@ fun SkillLibraryScreen(
       Spacer(modifier = Modifier.height(48.dp))
     }
 
-    // Featured section header
+    // Search bar
     item {
-      Text(
-        text = "Featured",
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Bold,
-        color = textPrimary
-      )
-      Spacer(modifier = Modifier.height(16.dp))
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .clayShadow(borderRadius = 20.dp, elevation = 4.dp)
+          .background(background, RoundedCornerShape(20.dp))
+      ) {
+        TextField(
+          value = searchQuery,
+          onValueChange = { searchQuery = it },
+          placeholder = {
+            Text(
+              "Search skills...",
+              color = textMuted,
+              fontWeight = FontWeight.Medium
+            )
+          },
+          modifier = Modifier.fillMaxWidth(),
+          singleLine = true,
+          colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            cursorColor = primary,
+            focusedTextColor = textPrimary,
+            unfocusedTextColor = textPrimary,
+          ),
+          leadingIcon = {
+            Icon(
+              Icons.Filled.Search,
+              contentDescription = "Search",
+              tint = textMuted
+            )
+          }
+        )
+      }
+      Spacer(modifier = Modifier.height(32.dp))
     }
 
-    // Featured skill cards
-    items(featuredSkillsData) { skill ->
-      SkillCard(
-        title = skill.title,
-        description = skill.description,
-        orbColor = featuredOrbColor,
-        category = skill.category,
-        background = background,
-        textPrimary = textPrimary,
-        textMuted = textMuted
-      )
-      Spacer(modifier = Modifier.height(24.dp))
+    // Featured section
+    if (filteredFeatured.isNotEmpty()) {
+      item {
+        Text(
+          text = "Featured",
+          fontSize = 20.sp,
+          fontWeight = FontWeight.Bold,
+          color = textPrimary
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+      }
+
+      items(filteredFeatured) { skill ->
+        SkillCard(
+          title = skill.title,
+          description = skill.description,
+          orbColor = featuredOrbColor,
+          category = skill.category,
+          background = background,
+          textPrimary = textPrimary,
+          textMuted = textMuted,
+          onClick = { onSkillCardClicked(skill.skillId) }
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+      }
     }
 
-    // Built-in section header
-    item {
-      Spacer(modifier = Modifier.height(8.dp))
-      Text(
-        text = "Built-in",
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Bold,
-        color = textPrimary
-      )
-      Spacer(modifier = Modifier.height(16.dp))
-    }
+    // Built-in section
+    if (filteredBuiltIn.isNotEmpty()) {
+      item {
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+          text = "Built-in",
+          fontSize = 20.sp,
+          fontWeight = FontWeight.Bold,
+          color = textPrimary
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+      }
 
-    // Built-in skill cards
-    items(builtInSkillsData) { skill ->
-      SkillCard(
-        title = skill.title,
-        description = skill.description,
-        orbColor = builtInOrbColor,
-        category = skill.category,
-        background = background,
-        textPrimary = textPrimary,
-        textMuted = textMuted
-      )
-      Spacer(modifier = Modifier.height(24.dp))
+      items(filteredBuiltIn) { skill ->
+        SkillCard(
+          title = skill.title,
+          description = skill.description,
+          orbColor = builtInOrbColor,
+          category = skill.category,
+          background = background,
+          textPrimary = textPrimary,
+          textMuted = textMuted,
+          onClick = { onSkillCardClicked(skill.skillId) }
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+      }
     }
 
     item {
@@ -285,7 +369,8 @@ fun SkillCard(
   category: String = "",
   background: Color,
   textPrimary: Color,
-  textMuted: Color
+  textMuted: Color,
+  onClick: () -> Unit = {}
 ) {
   Box(
     modifier = Modifier
@@ -294,6 +379,11 @@ fun SkillCard(
       .clayPressEffect()
       .clayShadow(borderRadius = 32.dp, elevation = 12.dp)
       .background(background, RoundedCornerShape(32.dp))
+      .clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        onClick = onClick
+      )
       .padding(24.dp)
   ) {
     Column {
@@ -348,6 +438,54 @@ fun SkillCard(
           ),
           shape = CircleShape
         )
+    )
+  }
+}
+
+@Preview(showBackground = true, name = "Skill Library - Light")
+@Composable
+private fun SkillLibraryScreenPreviewLight() {
+  GalleryTheme {
+    SkillLibraryScreen()
+  }
+}
+
+@Preview(showBackground = true, name = "Skill Library - Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SkillLibraryScreenPreviewDark() {
+  GalleryTheme {
+    SkillLibraryScreen()
+  }
+}
+
+@Preview(showBackground = true, name = "Skill Card - Light")
+@Composable
+private fun SkillCardPreviewLight() {
+  GalleryTheme {
+    SkillCard(
+      title = "Query Wikipedia",
+      description = "Query summary from Wikipedia for a given topic.",
+      orbColor = clayTertiary,
+      category = "Built-in",
+      background = clayCanvas,
+      textPrimary = clayTextPrimary,
+      textMuted = clayTextMuted
+    )
+  }
+}
+
+@Preview(showBackground = true, name = "Skill Card - Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SkillCardPreviewDark() {
+  GalleryTheme {
+    SkillCard(
+      title = "Mood Music",
+      description = "Generate music playlists based on your current mood.",
+      orbColor = claySecondaryDark,
+      category = "Featured",
+      background = clayCanvasDark,
+      textPrimary = clayTextPrimaryDark,
+      textMuted = clayTextMutedDark
     )
   }
 }
