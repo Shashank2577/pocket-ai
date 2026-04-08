@@ -37,7 +37,7 @@ android {
     minSdk = 31
     targetSdk = 35
     versionCode = 23
-    versionName = "1.1.0"
+    versionName = "1.2.0"
     setProperty("archivesBaseName", "pocket-ai-v${versionName}")
 
     // Needed for HuggingFace auth workflows.
