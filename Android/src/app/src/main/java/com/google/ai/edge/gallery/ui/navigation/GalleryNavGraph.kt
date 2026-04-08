@@ -197,9 +197,9 @@ fun GalleryNavHost(
           navController.navigate(ROUTE_HOMESCREEN)
         },
         onSkillCardClicked = { skillId ->
-          PendingSkillSelection.skillId = skillId
           val agentTask = modelManagerViewModel.getTaskById(BuiltInTaskId.LLM_AGENT_CHAT)
           if (agentTask != null) {
+            PendingSkillSelection.set(skillId)
             pickedTask = agentTask
             enableModelListAnimation = true
             navController.navigate(ROUTE_MODEL_LIST)
@@ -274,14 +274,16 @@ fun GalleryNavHost(
     composable(
       route = ROUTE_MODEL_LIST,
       enterTransition = {
-        if (initialState.destination.route == ROUTE_HOMESCREEN) {
+        if (initialState.destination.route == ROUTE_HOMESCREEN ||
+            initialState.destination.route == ROUTE_SKILL_LIBRARY) {
           slideEnter()
         } else {
           EnterTransition.None
         }
       },
       exitTransition = {
-        if (targetState.destination.route == ROUTE_HOMESCREEN) {
+        if (targetState.destination.route == ROUTE_HOMESCREEN ||
+            targetState.destination.route == ROUTE_SKILL_LIBRARY) {
           slideExit()
         } else {
           ExitTransition.None

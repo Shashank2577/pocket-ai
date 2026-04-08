@@ -16,16 +16,16 @@
 
 package com.google.ai.edge.gallery.ui.skills
 
+import java.util.concurrent.atomic.AtomicReference
+
 /**
  * Lightweight holder for a skill ID selected from the SkillLibraryScreen.
  * Set before navigating to Agent Chat; consumed and cleared after skills load.
  */
 object PendingSkillSelection {
-  var skillId: String? = null
+  private val _skillId = AtomicReference<String?>(null)
 
-  fun consume(): String? {
-    val id = skillId
-    skillId = null
-    return id
-  }
+  fun set(id: String) { _skillId.set(id) }
+
+  fun consume(): String? = _skillId.getAndSet(null)
 }
