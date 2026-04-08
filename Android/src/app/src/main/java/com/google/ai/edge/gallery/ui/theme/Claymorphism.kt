@@ -30,6 +30,9 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -136,13 +139,11 @@ fun Modifier.clayPressEffect(): Modifier = composed {
   this
     .graphicsLayer { scaleX = scale; scaleY = scale }
     .pointerInput(Unit) {
-      awaitPointerEventScope {
-        while (true) {
-          awaitFirstDown(requireUnconsumed = false)
-          isPressed = true
-          waitForUpOrCancellation()
-          isPressed = false
-        }
+      awaitEachGesture {
+        awaitFirstDown(requireUnconsumed = false)
+        isPressed = true
+        waitForUpOrCancellation()
+        isPressed = false
       }
     }
 }
