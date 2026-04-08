@@ -16,13 +16,21 @@
 
 package com.google.ai.edge.gallery.ui.theme
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -79,15 +87,21 @@ fun Modifier.clayShadow(
     // Reset shadow layer for inner shadows
     frameworkPaint.clearShadowLayer()
 
-    // 3. Inner Rim Light (Simulated via stroke or offset inner shadows)
-    // For Compose, inner shadows are often better simulated with a thin border 
-    // or by drawing a slightly smaller rect with a gradient.
-    // For simplicity and performance, we use a light inset stroke.
+    // 3. Inner Rim Light (Simulated via light inset stroke)
     paint.color = Color.White.copy(alpha = 0.5f)
     paint.style = androidx.compose.ui.graphics.PaintingStyle.Stroke
     paint.strokeWidth = 2.dp.toPx()
     canvas.drawRoundRect(
       1.dp.toPx(), 1.dp.toPx(), size.width - 1.dp.toPx(), size.height - 1.dp.toPx(),
+      borderRadius.toPx(), borderRadius.toPx(),
+      paint
+    )
+
+    // 4. Inner Colored Bounce Light (Subtle bottom-right inner glow)
+    paint.color = shadowColor.copy(alpha = 0.05f)
+    paint.style = androidx.compose.ui.graphics.PaintingStyle.Fill
+    canvas.drawRoundRect(
+      shadowOffset.toPx(), shadowOffset.toPx(), size.width, size.height,
       borderRadius.toPx(), borderRadius.toPx(),
       paint
     )
@@ -107,3 +121,28 @@ fun Modifier.clayButton(
   shadowColor = primaryColor.copy(alpha = 0.3f),
   highlightColor = Color.White.copy(alpha = 0.4f)
 )
+
+/**
+ * Press/touch animation for clay elements.
+ * Scales down slightly on press with a bouncy spring, returns to 1.0 on release.
+ */
+fun Modifier.clayPressEffect(): Modifier = composed {
+  var isPressed by remember { mutableStateOf(false) }
+  val scale by animateFloatAsState(
+    targetValue = if (isPressed) 0.96f else 1f,
+    animationSpec = spring(dampingRatio = 0.6f, stiffness = 400f),
+    label = "clayPressScale"
+  )
+  this
+    .graphicsLayer { scaleX = scale; scaleY = scale }
+    .pointerInput(Unit) {
+      awaitPointerEventScope {
+        while (true) {
+          awaitFirstDown(requireUnconsumed = false)
+          isPressed = true
+          waitForUpOrCancellation()
+          isPressed = false
+        }
+      }
+    }
+}
